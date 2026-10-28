@@ -1,0 +1,26 @@
+{
+  "name": "taskflow",
+  "version": "1.0.0",
+  "description": "TaskFlow - Smart To-Do List Manager mini-project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "todo",
+    "express",
+    "mongodb",
+    "college-mini-project"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

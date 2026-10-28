@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f9fc">
+  <meta name="description" content="TaskFlow helps you plan your day and manage tasks with clarity.">
+  <title>TaskFlow — Smart To-Do List Manager</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/app.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="TaskFlow home">
+        <span class="brand-mark" aria-hidden="true">✓</span>
+        <span><strong>TaskFlow</strong><small>Make room for what matters</small></span>
+      </a>
+      <div class="today-chip"><span class="calendar-icon" aria-hidden="true">▦</span><span id="todayDate">Today</span></div>
+    </header>
+
+    <main>
+      <section class="welcome">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL WORKSPACE</p>
+          <h1>A little progress<br class="mobile-break"> goes a long way<span>.</span></h1>
+          <p class="welcome-copy">Organize your priorities, celebrate your progress, and make today count.</p>
+        </div>
+        <button class="button button-primary" id="openCreateBtn" type="button"><span aria-hidden="true">＋</span> Add a task</button>
+      </section>
+
+      <section class="stats-grid" aria-label="Task statistics">
+        <article class="stat-card"><div class="stat-top"><span class="stat-label">All tasks</span><span class="stat-icon icon-blue">▤</span></div><strong id="totalStat">0</strong><span class="stat-note">Across your workspace</span></article>
+        <article class="stat-card"><div class="stat-top"><span class="stat-label">Pending</span><span class="stat-icon icon-amber">◷</span></div><strong id="pendingStat">0</strong><span class="stat-note">Ready when you are</span></article>
+        <article class="stat-card"><div class="stat-top"><span class="stat-label">Completed</span><span class="stat-icon icon-green">✓</span></div><strong id="completedStat">0</strong><span class="stat-note">Look how far you've come</span></article>
+        <article class="stat-card progress-stat"><div class="stat-top"><span class="stat-label">Completion rate</span><span class="stat-icon icon-lilac">↗</span></div><strong><span id="rateStat">0</span><small>%</small></strong><div class="progress-track"><span id="progressBar"></span></div></article>
+      </section>
+
+      <section class="tasks-panel">
+        <div class="panel-heading"><div><h2>Your tasks</h2><p>Keep your day moving, one task at a time.</p></div><span id="taskCount" class="count-pill">0 tasks</span></div>
+        <div class="toolbar">
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search tasks..." aria-label="Search tasks"></label>
+          <label class="select-wrap"><span class="sr-only">Filter by status</span><select id="statusFilter"><option value="all">All status</option><option value="pending">Pending</option><option value="completed">Completed</option></select></label>
+          <label class="select-wrap"><span class="sr-only">Filter by priority</span><select id="priorityFilter"><option value="all">All priorities</option><option value="High">High priority</option><option value="Medium">Medium priority</option><option value="Low">Low priority</option></select></label>
+          <label class="select-wrap sort-select"><span class="sr-only">Sort tasks</span><select id="sortSelect"><option value="newest">Recently added</option><option value="oldest">Oldest first</option><option value="dueSoon">Due date: soonest</option><option value="priority">Priority: high first</option></select></label>
+        </div>
+        <div id="loadingState" class="state-message"><span class="spinner"></span><span>Loading your tasks...</span></div>
+        <div id="taskList" class="task-list" aria-live="polite"></div>
+        <div id="emptyState" class="empty-state" hidden><div class="empty-illustration" aria-hidden="true">✦</div><h3 id="emptyTitle">A fresh start</h3><p id="emptyText">Your task list is clear. Add a task to get started.</p><button class="button button-primary" id="emptyAddBtn" type="button">＋ Create your first task</button></div>
+      </section>
+    </main>
+    <footer><span class="footer-brand">TaskFlow</span><span>Thoughtfully built for more focused days.</span><span class="footer-dot">●</span><span>College mini-project</span></footer>
+  </div>
+
+  <dialog id="taskDialog" class="task-dialog" aria-labelledby="dialogTitle">
+    <form id="taskForm" novalidate>
+      <div class="dialog-heading"><div><p class="eyebrow">MAKE IT HAPPEN</p><h2 id="dialogTitle">Add a new task</h2><p class="dialog-subtitle">Small steps turn plans into progress.</p></div><button class="icon-button" id="closeDialogBtn" type="button" aria-label="Close dialog">×</button></div>
+      <input id="taskId" type="hidden">
+      <label class="field-label" for="titleInput">Task title <span>*</span></label>
+      <input class="form-control" id="titleInput" name="title" maxlength="120" placeholder="e.g. Finish project documentation" required>
+      <p class="field-error" id="titleError" aria-live="polite"></p>
+      <label class="field-label" for="descriptionInput">Description <small>Optional</small></label>
+      <textarea class="form-control" id="descriptionInput" name="description" maxlength="1000" rows="3" placeholder="Add a few details to help you get started..."></textarea>
+      <div class="form-row">
+        <div><label class="field-label" for="priorityInput">Priority</label><select class="form-control" id="priorityInput"><option value="Low">Low</option><option value="Medium" selected>Medium</option><option value="High">High</option></select></div>
+        <div><label class="field-label" for="dueDateInput">Due date <small>Optional</small></label><input class="form-control" id="dueDateInput" type="date"></div>
+      </div>
+      <p class="form-error" id="formError" role="alert"></p>
+      <div class="dialog-actions"><button class="button button-quiet" id="cancelDialogBtn" type="button">Cancel</button><button class="button button-primary" id="saveTaskBtn" type="submit">Save task</button></div>
+    </form>
+  </dialog>
+  <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
